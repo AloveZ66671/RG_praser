@@ -555,7 +555,7 @@ public:
      * @brief 输出最小化DFA和对应的RG文法
      */
     void print_and_convert_to_RG() {
-        cout << "0\t1\n";
+        cout << "      0 1\n";
         vector<string> qname = name_states();
 
         // 输出最小化DFA
@@ -564,8 +564,8 @@ public:
             int i = pr.second;
             bool start_mark = (i==idfa.start);
             bool accept_mark = idfa.states[i].accept;
-            cout << (start_mark?"(s)":"") << (accept_mark?"(e)":"") << qname[i] << "\t"
-                 << qname[idfa.states[i].t0] << "\t" << qname[idfa.states[i].t1] << "\n";
+            cout << (start_mark?"(s)":"") << (accept_mark?"(e)":"") << qname[i] << " "
+                 << qname[idfa.states[i].t0] << " " << qname[idfa.states[i].t1] << "\n";
         }
 
         cout << "\n";
