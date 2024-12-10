@@ -1,7 +1,11 @@
+#include <algorithm>
 #include <iostream>
 #include <vector>
 #include <map>
 #include <set>
+#include <stack>
+#include <queue>
+#include <array>
 #include <utility>
 using namespace std;
 
@@ -568,21 +572,22 @@ public:
 
         // 输出RG: 按q0,q1,q2...顺序输出产生式
         // 对于每个状态qX：
-        //   qX->0qY (若接受态再qX->0)
-        //   qX->1qZ (若接受态再qX->1)
+        //   qX->0qY
+        //   qX->1qZ
+        //   qX->0
+        //   qX->1
         for (auto &p: order) {
             int stid = p.second;
             string lhs = qname[stid];
-            bool is_accept = idfa.states[stid].accept;
 
             int t0 = idfa.states[stid].t0;
             int t1 = idfa.states[stid].t1;
 
             cout << lhs << "->0" << qname[t0] << "\n";
-            if (is_accept) cout << lhs << "->0\n";
-
             cout << lhs << "->1" << qname[t1] << "\n";
-            if (is_accept) cout << lhs << "->1\n";
+            //如果输入0或1后到达终结态，输出 例如q0->0或q0->1
+            if (idfa.states[t0].accept) cout << lhs << "->0\n";
+            if (idfa.states[t1].accept) cout << lhs << "->1\n";
         }
     }
 
